@@ -1,6 +1,11 @@
 
 package com.pluralsight;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -56,8 +61,24 @@ public class Store {
      * A17|Wireless Mouse|19.99
      */
     public static void loadInventory(String fileName, ArrayList<Product> inventory) {
-        // TODO: read each line, split on "|",
-        //       create a Product object, and add it to the inventory list
+        try {
+            BufferedReader reader =new BufferedReader(new FileReader("products.csv"));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split("\\|");
+                String id = tokens[0];
+                String name = tokens[1];
+                double price = Double.parseDouble(tokens[2]);
+
+                Product product = new Product(id, name, price);
+
+                inventory.add(product);
+            }
+            reader.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
