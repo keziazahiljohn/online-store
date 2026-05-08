@@ -2,14 +2,13 @@
 
 ## Description of the Project
 
-Briefly describe what this Java console application does. Mention its purpose and who the intended users are. Explain the main functionality and what problems it aims to solve.
+A program that acts like a store and allows users to view items and add it to cart and purchase it.
 
 ## User Stories
 
-List the user stories that guided the development of your application. Format these stories as: "As a [type of user], I want [some goal] so that [some reason]."
-
-- As a user, I want to be able to input my data, so that the application can process it accordingly.
-- As a user, I want to receive immediate feedback, so I can understand what to do next.
+- As a user, I want to be able to view the inventory, so that I can pick items I want from it.
+- As a user, I want to add items to the cart, so I can check them out and buy them.
+- As a user, I want to be able to exit the cart or program at every step, so that I can step away from the purchase if I need to.
 
 ## Setup
 
@@ -39,14 +38,15 @@ Follow these steps to get your application running within IntelliJ IDEA:
 
 Include screenshots or GIFs that show your application in action. Use tools like [Giphy Capture](https://giphy.com/apps/giphycapture) to record a GIF of your application.
 
-![Application Screenshot](path/to/your/screenshot.png)
+![Results](results.gif)
 
 ## Future Work
 
 Outline potential future enhancements or functionalities you might consider adding:
 
-- Additional feature to be developed.
-- Improvement of current functionalities.
+- Better UI.
+- More functionality with payments.
+- Better data storage.
 
 ## Resources
 
@@ -55,15 +55,6 @@ List resources such as tutorials, articles, or documentation that helped you dur
 - [Java Programming Tutorial](https://www.example.com)
 - [Effective Java](https://www.example.com)
 
-## Team Members
-
-- **Name 1** - Specific contributions or roles.
-- **Name 2** - Specific contributions or roles.
-
 ## Thanks
 
-Express gratitude towards those who provided help, guidance, or resources:
-
-- Thank you to [Mentor's Name] for continuous support and guidance.
-- A special thanks to all teammates for their dedication and teamwork.
- 
+- Thank you to Raymond for continuous support and guidance. 
