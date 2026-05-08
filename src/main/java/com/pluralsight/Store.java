@@ -96,26 +96,26 @@ public class Store {
                     product.getPrice());
         }
 
-        System.out.println("Pick a product by id to enter into cart or enter 'b' to go back:");
-        String id = scanner.nextLine();
+        while (true) {
+            System.out.println("Pick a product by id to enter into cart or enter 'b' to go back:");
+            String id = scanner.nextLine();
 
-        if (id.equalsIgnoreCase("b")) {
-            return;
+            if (id.equalsIgnoreCase("b")) {
+                return;
+            }
+
+            Product selectedProduct = findProductById(id, inventory);
+
+            if (selectedProduct != null) {
+                cart.add(selectedProduct);
+                System.out.println(selectedProduct.getName() + " has been added to cart!");
+            } else {
+                System.out.println("Item not found.");
+            }
+
+            System.out.println();
         }
 
-        Product selectedProduct = findProductById(id, inventory);
-
-        if (selectedProduct != null) {
-            cart.add(selectedProduct);
-            System.out.println(selectedProduct.getName() + " has been added to cart!");
-        } else {
-            System.out.println("Item not found.");
-        }
-
-        System.out.println();
-
-        // TODO: show each product (id, name, price),
-        //       prompt for an id, find that product, add to cart
     }
 
     /**
@@ -123,12 +123,6 @@ public class Store {
      * and offers the option to check out.
      */
     public static void displayCart(ArrayList<Product> cart, Scanner scanner) {
-        // TODO:
-        //   • list each product in the cart
-        //   • compute the total cost
-        //   • ask the user whether to check out (C) or return (X)
-        //   • if C, call checkOut(cart, totalAmount, scanner)
-
         Double total = 0.0;
 
         for (Product product : cart) {
@@ -147,7 +141,6 @@ public class Store {
                 check = true;
                 checkOut(cart, total, scanner);
             } else if (input.equalsIgnoreCase("X")) {
-                check = true;
                 return;
             } else {
                 System.out.println("Invalid Entry");
@@ -166,7 +159,42 @@ public class Store {
     public static void checkOut(ArrayList<Product> cart,
                                 double totalAmount,
                                 Scanner scanner) {
-        // TODO: implement steps listed above
+
+        boolean check = false;
+        while (!check) {
+            System.out.println("Are you sure you want to checkout? (yes or no)");
+            String yesOrNo = scanner.nextLine();
+            if (yesOrNo.equalsIgnoreCase("yes")) {
+                System.out.println("Enter your name:");
+                String name = scanner.nextLine();
+
+                System.out.println("Enter payment info:");
+                String payment = scanner.nextLine();
+
+                printReceipt(name, scanner, cart);
+
+                check = true;
+            } else if (yesOrNo.equalsIgnoreCase("no")) {
+                return;
+            } else {
+                System.out.println("Choose yes to checkout or no to go back.");
+                check = false;
+            }
+        }
+        cart.clear();
+    }
+
+    public static void printReceipt(String name, Scanner scanner, ArrayList<Product> cart) {
+        System.out.println("================= Receipt: =================");
+        Double total = 0.0;
+
+        for (Product product : cart) {
+            System.out.println(product.getName() + " - $" + product.getPrice());
+            total += product.getPrice();
+        }
+
+        System.out.println("The total is - $" + total);
+        System.out.println("Paid by: " + name);
     }
 
     /**
