@@ -2,10 +2,7 @@
 package com.pluralsight;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -88,6 +85,35 @@ public class Store {
     public static void displayProducts(ArrayList<Product> inventory,
                                        ArrayList<Product> cart,
                                        Scanner scanner) {
+
+        System.out.printf("%-10s %-25s %10s%n", "ID", "Name", "Price");
+        System.out.println("----------------------------------------------------------");
+
+        for (Product product : inventory) {
+            System.out.printf("%-10s %-25s $%9.2f%n",
+                    product.getId(),
+                    product.getName(),
+                    product.getPrice());
+        }
+
+        System.out.println("Pick a product by id to enter into cart or enter 'b' to go back:");
+        String id = scanner.nextLine();
+
+        if (id.equalsIgnoreCase("b")) {
+            return;
+        }
+
+        Product selectedProduct = findProductById(id, inventory);
+
+        if (selectedProduct != null) {
+            cart.add(selectedProduct);
+            System.out.println(selectedProduct.getName() + " has been added to cart!");
+        } else {
+            System.out.println("Item not found.");
+        }
+
+        System.out.println();
+
         // TODO: show each product (id, name, price),
         //       prompt for an id, find that product, add to cart
     }
@@ -102,6 +128,32 @@ public class Store {
         //   • compute the total cost
         //   • ask the user whether to check out (C) or return (X)
         //   • if C, call checkOut(cart, totalAmount, scanner)
+
+        Double total = 0.0;
+
+        for (Product product : cart) {
+            System.out.println(product.getName() + " - $" + product.getPrice());
+            total += product.getPrice();
+        }
+
+        System.out.println("The total is - $" + total);
+
+        boolean check = false;
+        while (!check) {
+            System.out.println("Enter (C) to checkout or (X) to return.");
+            String input = scanner.nextLine();
+
+            if (input.equalsIgnoreCase("C")) {
+                check = true;
+                checkOut(cart, total, scanner);
+            } else if (input.equalsIgnoreCase("X")) {
+                check = true;
+                return;
+            } else {
+                System.out.println("Invalid Entry");
+                check = false;
+            }
+        }
     }
 
     /**
@@ -123,6 +175,11 @@ public class Store {
      * @return the matching Product, or null if not found
      */
     public static Product findProductById(String id, ArrayList<Product> inventory) {
+        for (Product product : inventory) {
+            if (id.equalsIgnoreCase(product.getId())) {
+                return product;
+            }
+        }
         // TODO: loop over the list and compare ids
         return null;
     }
